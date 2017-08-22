@@ -1,0 +1,371 @@
+
+body {
+  position: relative;
+  font-family: Calibri, sans-serif;
+  width: 100%;
+  height: 100%;
+
+}
+
+html {
+  width: 100%;
+  min-height: 100%;
+}
+
+/*Intro*/
+
+.background-wrap {
+  position: absolute;
+  z-index: -200;
+  width: 100%;
+  height: 720px;
+  overflow: hidden;
+  padding-top: 0px;
+  top: 0;
+  left: 0;
+}
+
+#video-bg-elem {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  min-width: 100%;
+}
+.content {
+  /*padding-top: 30px;*/
+  position: absolute;
+  width: 100%;
+  height: 720px;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+}
+.content h1 {
+  text-align: center;
+  font-size: 65px;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: #fff;
+  padding-top: 20%;
+  margin-bottom: 10px;
+}
+
+.content p {
+  text-align: center;
+  font-size: 20px;
+  letter-spacing: 3px;
+  z-index: 100;
+}
+
+.content .button1 {
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+}
+
+.content .btn1 {
+  height: 50px;
+  width: 250px;
+  z-index: 100;
+  margin: 10px;
+}
+
+.content p {
+  color: white;
+  font-size: 120%;
+  padding-top: 7px;
+  z-index: 100;
+}
+
+.content .glyphicon-chevron-down {
+  position: relative;
+  color: white;
+  font-size: 200%;
+  padding-top: 130px;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+}
+
+.content .glyphicon-chevron-down:hover {
+  position: relative;
+  color: white;
+  font-size: 220%;
+  padding-top: 130px;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+}
+
+/*Navbar*/
+
+nav {
+  height: 75px;
+  width: 100%;
+}
+
+.navbar {
+  background-color: transparent;
+  border: none;
+  padding-top:0px;
+  padding-bottom: 0px;
+  font-size: 100%;
+  transition: 0.5s;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+    font-size: 100%;
+    font-weight: normal;
+}
+
+
+.navbar-default .navbar-nav>li>a:hover {
+  color: #069AE5;
+  background-color: transparent;
+}
+.navbar-default .navbar-nav>li>a:active {
+  color: #069AE5;
+  background-color: transparent;
+}
+
+.navbar li {
+  padding-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.navbar .navbar-brand img{
+  height: 60px;
+  padding-left: 20px;
+  padding-bottom: 5px;
+}
+
+.shrink {
+  background-color: #272B2E;
+  height: 75px;
+  border-bottom: 1px;
+  transition: 0.5s;
+  padding-top: 0px;
+}
+
+.icon-bar {
+  background: white;
+}
+
+.navbar-toggle {
+  padding-top: 22px;
+}
+
+/*This is the What Section*/
+
+.service-section {
+    top: 720px;
+    height: 100%;
+    text-align: center;
+    position: relative;
+    background: #FAFAF9;
+    z-index: 10;
+}
+
+
+
+.service-section .thumbnail {
+  background: #FAFAF9;
+}
+
+.service-section h2 {
+  color: #3F3F3F;
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.service-section p {
+  line-height: 200%;
+  color: #3F3F3F;
+}
+
+.service-section .thumbnail {
+  text-decoration: none;
+}
+
+.service-section .thumbnail:hover {
+  background: #FAFAF9;
+}
+
+
+.single-service {
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+.glyphicon {
+  font-size: 50px;
+  padding-bottom: 20px;
+}
+
+.single-service h4 {
+  color: #3F3F3F;
+  font-size: 150%;
+}
+
+/*End of Service*/
+
+/*This is the Partner section*/
+
+.how-section {
+    height: 480px;
+    top: 700px;
+    z-index: 14;
+    position: relative;
+    text-align: center;
+    background:
+        linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
+        url('img/partners.png');
+    background-size: cover;
+    padding-top: 0px;
+    padding-bottom: 55px;
+    background-repeat: space;
+
+    background-attachment: inherit;
+
+}
+
+.how-section h2 {
+  padding-top: 20px;
+  text-align: left;
+  color: white;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.how-section p {
+  text-align: center;
+  padding-top: 20px;
+  letter-spacing: 3px;
+  color: white;
+  font-size: 120%;
+}
+
+.how-section #sign-up {
+  padding-top: 30px;
+}
+
+.how-section button {
+  font-size: 130%;
+  width: 290px;
+  height: 50px;
+  letter-spacing: 3px;
+  border-style:
+}
+
+/*This is the Team Section*/
+
+.about-section {
+    position: relative;
+    top: 700px;
+    padding-top: 50px;
+    text-align: center;
+    background: #EFEBEB;
+}
+
+.about-section h2 {
+  color: #3F3F3F;
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.about-section p {
+  line-height: 200%;
+  color: #3F3F3F;
+}
+
+.about-section #profile img {
+  height: 350px;
+  width: 100%;
+  /*border-radius: 50%;*/
+}
+
+.about-section table  {
+  margin: 0px auto;
+}
+
+.about-section .caption td {
+  padding: 5px;
+}
+
+.about-section table td img {
+  height: 45px;
+  width: 45px;
+}
+
+
+
+
+
+.footer-section {
+  position: relative;
+  top: 700px;
+  width: 100%;
+
+  margin: 0 auto;
+
+
+
+    padding-top: 36px;
+    text-align: center;
+    background: #272B2E;
+    vertical-align: middle;
+}
+
+.footer-section .pad {
+  padding: 20px;
+}
+.footer-section h4 {
+  color: white;
+  font-weight: bold;
+}
+
+.footer-section p {
+  color: white;
+  font-weight: bold;
+}
+
+.footer-section a {
+  color: white;
+  font-weight: bold;
+  line-height: 35px;
+}
+.footer-section a:hover {
+  color: white;
+  font-weight: bold;
+}
+
+.footer-section table {
+  margin: 0px auto;
+}
+
+.footer-section td {
+  padding: 5px;
+}
+
+.footer-section img {
+  height:35px;
+  width: 35px;
+
+}
+
+
+
+
+.footer-section p {
+  color: white;
+}
+
+.footer-section .copy {
+  padding-bottom: 30px;
+}

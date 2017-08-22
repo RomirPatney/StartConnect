@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sign-Up/Login Form</title>
+  <!-- <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"> -->
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="edit-account.css">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../publicfile/one-page.html"><img src="../publicfile/logo.png" alt="logo"></img></a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+          <li><a  href="mainpage.html"><span class="glyphicon glyphicon-th-list"></span> Companies</a></li>
+          <li><a  style="color: #069AE5;" href="edit-account.html"><span class="glyphicon glyphicon-edit"></span> Post Job</a></li>
+          <li><a href="account.html"><span class="glyphicon glyphicon-user"></span> Update Account</a></li>
+          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></span>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <section class="main-content">
+    <div class="container">
+      <br>
+      <div class="jumbotron">
+    <h2>Things to note</h2>
+    <br>
+    <p>Please make sure you have included the following information in the position description:</p>
+    <ul>
+<li>Responsibilities of the intern's position within company</li>
+<li>Minimum Duration of the position (this should typically be 12 weeks)</li>
+<li>Start Date (it can also just be an approximate date)</li>
+</ul>
+  </div>
+
+<br>
+<div class="container">
+  <form action="/add_pos" method="post">
+<h3>Add New Position</h3><br>
+          <table class="table">
+            <thead>
+              <th class="title">Position Name</th>
+              <th class="title">Number of Positions</th>
+              <th class="title">Description</th>
+              <th class="title">Add</th>
+            </thead>
+          </tfoot>
+              <th class="title"><input required type="text" name="pos_name" class="form-control" id="exampleInputName2" placeholder="ex. Software Developer"></th>
+              <th class="title"><input required type="text" name="num_available" class="form-control" id="exampleInputName2" placeholder="ex. 3"></th>
+              <th class="title"><textarea required name="desc" class="form-control" rows="3"></textarea></th>
+              <th class="title"><button type="submit" class="btn btn-success" value="Update">Add New</button></th>
+            </tfoot>
+          </table>
+  </form>
+  <h3>Current Positions</h3><br>
+          <!-- Table -->
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="title">Position Name</th>
+                <th class="title">Number of Positions</th>
+                <th class="title">Description</th>
+                <th class="title">Delete</th>
+              </tr>
+            </thead>
+            <tfoot>
+            {{ range $key, $pos := . }}
+            {{ range $pos, $num := . }}
+            {{ range $num, $desc := . }}
+            <form method="post" action="/delete_pos">
+            <tr>
+                <th class="title">{{ $pos }}</th>
+                <th class="title">{{ $num }}</th>
+                <th class="title"><a data-toggle="modal" data-target="#{{ $key }}">
+                  View position
+                </a>
+              </th>
+              <!-- Modal -->
+              <div class="modal fade" id="{{ $key }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">{{ $pos }}</h4>
+                    </div>
+                    <div class="modal-body">
+                      {{ range $desc }}{{ . }}<br>{{end}}
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <th class="delete"><button type="submit" class="btn btn-success" value="Update">Delete</button>
+                <input type="hidden" name="pos" value="{{ $pos }}"/></th>
+            </tr>
+            </form>
+            {{ end }}
+            {{ end }}
+            {{ end }}
+            </tfoot>
+          </table>
+</div>
+    </div>
+
+
+            </section>
+            <br>
+            <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

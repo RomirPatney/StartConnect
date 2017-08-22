@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	  <title>Sign-Up/Login Form</title>
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	  <link rel="stylesheet" href="mainpage.css">
+
+	  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+		<script src="http://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+		<script>
+		$(document).ready(function(){
+    $('#sort').DataTable();
+});
+</script>
+	</head>
+
+	<body class="wide">
+		<nav class="navbar navbar-default">
+	    <div class="container-fluid">
+	      <!-- Brand and toggle get grouped for better mobile display -->
+	      <div class="navbar-header">
+	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	          <span class="sr-only">Toggle navigation</span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	        </button>
+	        <a class="navbar-brand" href="../publicfile/one-page.html"><img src="../publicfile/logo.png" alt="logo"></img></a>
+	      </div>
+
+	      <!-- Collect the nav links, forms, and other content for toggling -->
+	      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+	        <ul class="nav navbar-nav navbar-right">
+	          <li><a style="color: #069AE5;" href="mainpage.html"><span class="glyphicon glyphicon-th-list"></span> Companies</a></li>
+	          <li><a href="account.html"><span class="glyphicon glyphicon-user"></span> Update Account</a></li>
+	          <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></span>
+	        </ul>
+	      </div><!-- /.navbar-collapse -->
+	    </div><!-- /.container-fluid -->
+	  </nav>
+
+		<section class="main-content">
+			<div class="container">
+				<br>
+				<div class="panel panel-default">
+					<!-- Default panel contents -->
+					<div class="panel-heading"><h3>Company Listing</h3></div>
+					<div class="panel-body"><br>
+						<p>View the table to see which companies in your local area are hiring. Click View More to
+							see descriptions about each position and then if it suits you, simply click Apply. Send your
+							resume in pdf format to the relevant email.
+						</p><br>
+		<table id="sort" class="display" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>Logo</th>
+            <th>Company Name/View</th>
+            <th>Positions/Desription</th>
+            <th>Apply</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+	{{ range $key, $email := . }}
+	{{ range $email, $img := . }}
+	{{ range $img, $comp := . }}
+	{{ range $comp, $website := . }}
+	{{ range $website, $id := . }}
+        <tr>
+					<td class="profile">
+						{{ if $img }} <img src="data:image/jpeg;base64, {{ $img }}" alt="profile picture" class="profile img">
+						{{ else }} <img src="../companypage/empty_profile_pic.jpg" alt="profile picture" class="profile img"> {{ end }}
+					</td>
+					<td class="name">
+						<br>{{ $comp }}<br><br> View Company: <br><a href="{{ $website }}">{{ $website }}</a>					</td>
+					<td class="position">
+						<br>{{ range $id, $pos := . }}
+						{{ range $pos, $num := . }}
+						{{ range $num, $desc := . }}
+						<p>{{ $pos }}: {{ $num }}
+							<a data-toggle="modal" data-target="#{{ $id }}">
+								View position
+							</a></p>
+
+							<!-- Modal -->
+							<div class="modal fade" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title" id="myModalLabel">{{ $pos }}</h4>
+										</div>
+										<div class="modal-body">
+											{{ range $desc }} {{ . }} <br> {{ end }}
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						{{ end }}
+						{{ end }}
+						{{ end }}
+			<td class="apply"><br><button type="button" class="btn btn-success"><a style="color:white;" href="mailto:{{ $email }}?cc=start-connect@outlook.com">Apply Now!</a></button></td>
+        </tr>
+	{{ end }}
+	{{ end }}
+	{{ end }}
+	{{ end }}
+	{{ end }}
+
+
+    </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+		<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
