@@ -17,7 +17,7 @@ import (
 
 
 
-func init() {
+func main() {
 
   router := mux.NewRouter()
   router.HandleFunc("/", home_page)
@@ -26,6 +26,7 @@ func init() {
 	router.HandleFunc("/studentpage/account.html", std_account_page)
 	router.HandleFunc("/studentpage/mainpage.html", std_main_page)
 	router.HandleFunc("/logout", logout)
+	router.HandleFunc("/forgotp", forgotp)
 	router.HandleFunc("/companypage/edit-account.html", cmpy_edit_pos)
 	router.HandleFunc("/delete_pos", delete_pos).Methods("Post")
 	router.HandleFunc("/update_account", update_account).Methods("Post")
@@ -38,6 +39,8 @@ func init() {
 
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("/users/khalilbenayed/go/src/hello/projects/startconnectmaster"))))
 	log.Println("Listening...")
+	//port := ":" + os.Getenv("PORT")
+	//fmt.Print(port)
 	http.ListenAndServe(":3009", router)
 }
 
@@ -50,6 +53,8 @@ func forgotp(w http.ResponseWriter, r *http.Request) {
 	if where == "companies" {
 		email := r.FormValue("cemail")
 		cname := r.FormValue("cname")
+		pwd := r.FormValue("pwd")
+		cpwd := r.FormValue("cpwd")
 		rows, err := db.Query("select company_name from companies where email = ? and company_name = ?", email, cname)
 		if err != nil {
 			log.Fatal(err)
@@ -62,16 +67,29 @@ func forgotp(w http.ResponseWriter, r *http.Request) {
 				log.Fatal(err)
 			}
 		}
-		if name == "" {
+		if name != "" && pwd == cpwd {
+			hash, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
+			if err != nil {
+				log.Fatal(err)
+			}
+			stmt, err := db.Prepare("UPDATE companies SET password = ? WHERE email = ?")
+			if err != nil {
+				log.Fatal(err)
+			}
+			_, err1 := stmt.Exec(hash, email)
+			if err1 != nil {
+				log.Fatal(err1)
+			}
 			http.Redirect(w, r, "publicfile/one-page.html", 301)
 		} else {
-
-			http.Redirect(w, r, "publicfile/one-page.html", 301)
+			http.Redirect(w, r, "companypage/forgotpwd.html", 301)
 		}
 	} else {
 		email := r.FormValue("email")
 		firstname := r.FormValue("firstname")
 		lastname := r.FormValue("lastname")
+		pwd := r.FormValue("pwd")
+		cpwd := r.FormValue("cpwd")
 		rows, err := db.Query("select firstname from users where email = ? and firstname = ? and lastname = ?", email, firstname, lastname)
 		if err != nil {
 			log.Fatal(err)
@@ -84,11 +102,22 @@ func forgotp(w http.ResponseWriter, r *http.Request) {
 				log.Fatal(err)
 			}
 		}
-		if name == "" {
+		if name != "" && pwd == cpwd {
+			hash, err := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
+			if err != nil {
+				log.Fatal(err)
+			}
+			stmt, err := db.Prepare("UPDATE users SET password = ? WHERE email = ?")
+			if err != nil {
+				log.Fatal(err)
+			}
+			_, err1 := stmt.Exec(hash, email)
+			if err1 != nil {
+				log.Fatal(err1)
+			}
 			http.Redirect(w, r, "publicfile/one-page.html", 301)
 		} else {
-			//
-			http.Redirect(w, r, "publicfile/one-page.html", 301)
+			http.Redirect(w, r, "studentpage/forgotpwd.html", 301)
 		}
 	}
 }

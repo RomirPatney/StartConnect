@@ -34,15 +34,16 @@
 <section class="main-content">
     <div class="container">
         <form action="/forgotp" method="post">
-                <h3>Please write your account information</h3><br>
-                Company Name: <input required type="text" name="cname" class="form-control" id="exampleInputName2">
-                Company Email: <input required type="text" name="cemail" class="form-control" id="exampleInputName2">
+            <h3>Please write your account information</h3><br>
+            First Name: <input required type="text" name="firstname" class="form-control" id="exampleInputName2">
+            Last Name: <input required type="text" name="lastname" class="form-control" id="exampleInputName2">
+            Email: <input required type="text" name="email" class="form-control" id="exampleInputName2">
             New Password: <input required type="text" name="pwd" class="form-control" id="exampleInputName2">
             Confirm New Password: <input required type="text" name="cpwd" class="form-control" id="exampleInputName2">
-            <input type="hidden" value="companies" name="where">
-                <button type="submit" class="btn btn-success" value="Update">Validate</button>
-            </form>
-        </div>
+            <input type="hidden" value="users" name="where">
+            <button type="submit" class="btn btn-success" value="Update">Validate</button>
+        </form>
+    </div>
 
 
 </section>
