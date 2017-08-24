@@ -1,1 +1,1 @@
-web: main.go formerrors.go
+web: go run main.go formerrors.go
