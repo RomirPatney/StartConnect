@@ -16,12 +16,3 @@ $(window).scroll(function() {
         $('nav img')
       }
     });
-
-// $(function(){
-//   $("#motto").typed({
-//     strings: ["Connect. Learn. Grow"],
-//     typeSpeed: 70,
-//     backDelay: 200;
-//     loop: true
-//   })
-// })

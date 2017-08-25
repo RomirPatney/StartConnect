@@ -13,6 +13,12 @@ import (
 	"os"
 	"encoding/base64"
 	"strings"
+	//"github.com/aws/aws-sdk-go/service/rds"
+	//"github.com/aws/aws-sdk-go/service/rds/rdsutils"
+	//"github.com/aws/aws-sdk-go/service/directconnect"
+	//"github.com/aws/aws-sdk-go/aws/credentials/stscreds"
+	//"github.com/aws/aws-sdk-go/aws/session"
+	//"github.com/aws/aws-sdk-go/aws"
 )
 
 
@@ -39,14 +45,39 @@ func main() {
 
 	router.PathPrefix("/").Handler(http.StripPrefix("/", http.FileServer(http.Dir("/users/khalilbenayed/go/src/hello/projects/startconnectmaster"))))
 	log.Println("Listening...")
-	//port := ":" + os.Getenv("PORT")
-	//fmt.Print(port)
-	http.ListenAndServe(":3009", router)
+	http.ListenAndServe(":3010", router)
+}
+
+func db_connect() (*sql.DB, error) {
+	//db, err := sql.Open("mysql", "kbenayed:khaliloubenayed@tcp(rds-mysql.cab7rcqzhvox.us-west-2.rds.amazonaws.com:3306)/Velocity_Connect")
+	db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	/*region := "us-west-2c"
+	awsCreds := stscreds.NewCredentials(session.New(&aws.Config{Region: &region}), "developer")
+	authToken, _ := rdsutils.BuildAuthToken("rds-mysql.cab7rcqzhvox.us-west-2.rds.amazonaws.com:3306", "us-west-2c", "kbenayed", awsCreds)
+
+	// Create the MySQL DNS string for the DB connection
+	// user:password@protocol(endpoint)/dbname?<params>
+	dnsStr := fmt.Sprintf("%s:%s@tcp(%s)/%s?tls=true",
+		"kbenayed", authToken, "rds-mysql.cab7rcqzhvox.us-west-2.rds.amazonaws.com:3306", "Velocity_Connect",
+	)
+
+	// Use db to perform SQL operations on database
+	db, err := sql.Open("mysql", dnsStr)
+
+	if err != nil {
+		log.Fatal(err)
+	}*/
+	fmt.Println("Successfully opened connection to database")
+	return db, err
 }
 
 func forgotp(w http.ResponseWriter, r *http.Request) {
 	where := r.FormValue("where")
-	db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+	db, err := db_connect()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -134,7 +165,7 @@ func delete_pos(w http.ResponseWriter, r *http.Request) {
 	email, err := r.Cookie("cemail")
 	if err == nil && email.Value != "" {
 		pos := r.FormValue("pos")
-		db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+		db, err := db_connect()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -152,7 +183,7 @@ func delete_pos(w http.ResponseWriter, r *http.Request) {
 func upload_pic(w http.ResponseWriter, r *http.Request) {
 	email, err := r.Cookie("cemail")
 	if err == nil && email.Value != "" {
-		db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+		db, err := db_connect()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -254,7 +285,7 @@ func update_account(w http.ResponseWriter, r *http.Request) {
 		if what == "Company_Name" {
 			with := r.FormValue(what)
 			if with != "" {
-				db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+				db, err := db_connect()
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -271,7 +302,7 @@ func update_account(w http.ResponseWriter, r *http.Request) {
 		} else if what == "Firstname" {
 			with := r.FormValue(what)
 			if with != "" {
-				db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+				db, err := db_connect()
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -288,7 +319,7 @@ func update_account(w http.ResponseWriter, r *http.Request) {
 		} else if what == "Lastname" {
 			with := r.FormValue(what)
 			if with != "" {
-				db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+				db, err := db_connect()
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -305,7 +336,7 @@ func update_account(w http.ResponseWriter, r *http.Request) {
 		} else if what == "Cemail" {
 			with := r.FormValue(what)
 			if with != "" {
-				db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+				db, err := db_connect()
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -364,7 +395,7 @@ func update_account(w http.ResponseWriter, r *http.Request) {
 		} else if what == "Uemail" {
 			with := r.FormValue(what)
 			if with != "" {
-				db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+				db, err := db_connect()
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -399,7 +430,7 @@ func update_account(w http.ResponseWriter, r *http.Request) {
 		} else if what == "Website" {
 			with := r.FormValue(what)
 			if with != "" {
-				db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+				db, err := db_connect()
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -422,7 +453,7 @@ func update_account(w http.ResponseWriter, r *http.Request) {
 				cnp: r.FormValue("cnp"),
 			}
 			if p.Validate_update_pword() {
-				db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+				db, err := db_connect()
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -449,7 +480,7 @@ func update_account(w http.ResponseWriter, r *http.Request) {
 			cnp: r.FormValue("cnp"),
 		}
 		if p.Validate_update_pword() {
-			db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+			db, err := db_connect()
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -486,7 +517,7 @@ func add_pos(w http.ResponseWriter, r *http.Request) {
 		if pos.Validate_pos() == false {
 			return
 		} else {
-			db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+			db, err := db_connect()
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -520,7 +551,7 @@ func add_pos(w http.ResponseWriter, r *http.Request) {
 func cmpy_edit_pos(w http.ResponseWriter, r *http.Request) {
 	email, err := r.Cookie("cemail")
 	if err == nil && email.Value != "" {
-		db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+		db, err := db_connect()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -595,7 +626,7 @@ func cmpy_edit_pos(w http.ResponseWriter, r *http.Request) {
 func cmpy_account_page(w http.ResponseWriter, r *http.Request) {
 	email, err := r.Cookie("cemail")
 	if err == nil && email.Value != "" {
-		db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+		db, err := db_connect()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -624,7 +655,7 @@ func cmpy_account_page(w http.ResponseWriter, r *http.Request) {
 func std_account_page(w http.ResponseWriter, r *http.Request) {
 	email, err := r.Cookie("cemail")
 	if err == nil && email.Value != "" {
-		db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+		db, err := db_connect()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -647,7 +678,7 @@ func std_account_page(w http.ResponseWriter, r *http.Request) {
 func cmpy_main_page(w http.ResponseWriter, r *http.Request) {
 	email, err := r.Cookie("cemail")
 	if err == nil && email.Value != "" {
-		db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+		db, err := db_connect()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -763,7 +794,7 @@ func cmpy_main_page(w http.ResponseWriter, r *http.Request) {
 func std_main_page(w http.ResponseWriter, r *http.Request) {
 	email, err := r.Cookie("cemail")
 	if err == nil && email.Value != "" {
-		db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+		db, err := db_connect()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -924,10 +955,10 @@ func register_user(w http.ResponseWriter, r *http.Request) {
 	  fmt.Printf("%s %s %s %s %s", usr.FirstnameErr, usr.LastnameErr, usr.EmailErr, usr.PasswordErr, usr.Confirm_passwordErr)
 	  http.Redirect(w, r, "sign-up-login-form/index1.html", 301)
   } else {
-      db, err := sql.Open("mysql", "root:@/Velocity_Connect")
-      if err != nil {
-        log.Fatal(err)
-      }
+	  db, err := db_connect()
+	  if err != nil {
+		  log.Fatal(err)
+	  }
       // insert
       hash, err := bcrypt.GenerateFromPassword([]byte(usr.Password), bcrypt.DefaultCost)
       if err != nil {
@@ -971,10 +1002,10 @@ func register_user(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("%s %s %s %s %s", cmpy.Company_nameErr, cmpy.Confirm_passwordErr, cmpy.EmailErr, cmpy.PasswordErr, cmpy.Confirm_passwordErr)
 		http.Redirect(w, r, "sign-up-login-form/index.html", 301)
 	} else {
-        db, err := sql.Open("mysql", "root:@/Velocity_Connect")
-        if err != nil {
-          log.Fatal(err)
-        }
+		db, err := db_connect()
+		if err != nil {
+			log.Fatal(err)
+		}
         // insert
         hash, err := bcrypt.GenerateFromPassword([]byte(cmpy.Password), bcrypt.DefaultCost)
         if err != nil {

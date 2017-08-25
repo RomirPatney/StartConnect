@@ -2,12 +2,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Sign-Up/Login Form</title>
+    <title>Forgot Password</title>
     <!-- <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'> -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"> -->
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="edit-account.css">
+
+    <link rel="stylesheet" href="forgot.css">
 </head>
 
 <body>
@@ -31,39 +32,115 @@
     </div><!-- /.container-fluid -->
 </nav>
 
-<section class="main-content">
-    <div class="container">
+<section class="forms">
+
+<div class="form">
+
+    <ul class="tab-group">
+      <li class="tab active"><a href="#signup">Student Account</a></li>
+      <li class="tab"><a href="#login">Company Account</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="signup">
+        <h1>Reset Student Account</h1>
+        <p>Please fill in the right information to reset password.</p>
+
         <form action="/forgotp" method="post">
-            <h3>Please write your account information</h3><br>
-            First Name: <input required type="text" name="firstname" class="form-control" id="exampleInputName2">
-            Last Name: <input required type="text" name="lastname" class="form-control" id="exampleInputName2">
-            Email: <input required type="text" name="email" class="form-control" id="exampleInputName2">
-            New Password: <input required type="text" name="pwd" class="form-control" id="exampleInputName2">
-            Confirm New Password: <input required type="text" name="cpwd" class="form-control" id="exampleInputName2">
-            <input type="hidden" value="users" name="where">
-            <button type="submit" class="btn btn-success" value="Update">Validate</button>
+
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                First Name<span class="req">*</span>
+              </label>
+              <input type="email"required autocomplete="off" name="email"/>
+            </div>
+
+            <div class="field-wrap">
+              <label>
+                Last Name<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off" name="website"/>
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Email<span class="req">*</span>
+            </label>
+            <input type="text"required autocomplete="off" name="companyname"/>
+          </div>
+
+        <div class="field-wrap">
+          <label>
+            New Password<span class="req">*</span>
+          </label>
+          <input id="password" type="password"required autocomplete="off" name="password"/>
+        </div>
+
+        <div class="field-wrap">
+          <label>
+            Confirm New Password<span class="req">*</span>
+          </label>
+          <input id="confirm_password" type="password"required autocomplete="off" name="confirm_password"/>
+        </div>
+
+        <button type="submit" class="button button-block"/>Reset Password</a></button>
+
         </form>
-    </div>
 
+      </div>
 
+      <div id="login">
+        <h1>Reset Company Account</h1>
+        <p>Please fill in the right information to reset password.</p>
+
+        <form action="/forgotp" method="post">
+
+          <div class="field-wrap">
+            <label>
+              Company Name<span class="req">*</span>
+            </label>
+            <input type="text"required autocomplete="off" name="companyname"/>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Company Email<span class="req">*</span>
+            </label>
+            <input type="text"required autocomplete="off" name="companyname"/>
+          </div>
+
+        <div class="field-wrap">
+          <label>
+            New Password<span class="req">*</span>
+          </label>
+          <input id="password" type="password"required autocomplete="off" name="password"/>
+        </div>
+
+        <div class="field-wrap">
+          <label>
+            Confirm New Password<span class="req">*</span>
+          </label>
+          <input id="confirm_password" type="password"required autocomplete="off" name="confirm_password"/>
+        </div>
+
+        <button type="submit" class="button button-block"/>Reset Password</a></button>
+
+        </form>
+
+      </div>
+
+    </div><!-- tab-content -->
 </section>
-<br>
-<br>
-
-
-
-
-
-
-
-
-
 
 
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src="js/bootstrap.min.js"></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="signup.js"></script>
+    <script src="js1/index.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -106,7 +106,7 @@ func (p *update_pword) Validate_update_pword() bool {
     return false
   }
 
-  db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+  db, err := db_connect()
   if err != nil {
     log.Fatal(err)
   } else {
@@ -178,7 +178,7 @@ func (login *Login) Validate_user_login() bool {
     login.PasswordErr = "Please write a password"
   }
 
-  db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+  db, err := db_connect()
   if err != nil {
     log.Fatal(err)
   } else {
@@ -232,7 +232,7 @@ func (usr *User) Validate_user_registration() bool {
   } else if matched == false {
     usr.EmailErr = "Please enter a valid email address"
   } else {
-    db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+    db, err := db_connect()
     if err != nil {
       log.Fatal(err)
     } else {
@@ -281,16 +281,18 @@ func (cmpy *Company) Validate_company_registration() bool {
   } else if matched == false {
     cmpy.EmailErr = "Please enter a valid email address"
   } else {
-    db, err := sql.Open("mysql", "root:@/Velocity_Connect")
+    db, err := db_connect()
     if err != nil {
       log.Fatal(err)
-    } else {
-      fmt.Println("Connection successful")
     }
+
+    fmt.Print("hi   ")
     rows, err := db.Query("select company_name from companies where email = ?", cmpy.Email)
     if err != nil {
       log.Fatal(err)
     }
+
+    fmt.Print("hi1   ")
     defer rows.Close()
     var name string
     for rows.Next() {
